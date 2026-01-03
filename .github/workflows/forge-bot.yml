@@ -24,7 +24,7 @@ jobs:
       - name: Install Hardhat
         run: |
           npm init -y
-          npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
+          npm install --save-dev hardhat@^2.22.0 @nomicfoundation/hardhat-toolbox --legacy-peer-deps
       
       # Step 4: Create or update Hardhat project
       - name: Create Hardhat Project
