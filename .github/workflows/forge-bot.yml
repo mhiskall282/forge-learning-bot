@@ -1,43 +1,40 @@
-name: Forge Learning Bot
+name: Hardhat Learning Bot
 
 on:
   schedule:
     # Every day at 00:05 UTC
-   - cron: "5 0-23 1-31 1-12 0-6"
+    - cron: "5 0-23 1-31 1-12 0-6"
   workflow_dispatch:
 
 jobs:
-  forge-bot:
+  hardhat-bot:
     runs-on: ubuntu-latest
 
     permissions:
       contents: write
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Foundry
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Step 3: Install Hardhat locally
+      - name: Install Hardhat
         run: |
-          # Download and install Foundry installer
-          curl -L https://foundry.paradigm.xyz | bash
-          
-          # Install Foundry binaries (forge, cast, anvil, etc.)
-          ~/.foundry/bin/foundryup
+          npm init -y
+          npm install --save-dev hardhat
 
-          # Add Foundry to PATH for this step
-          export PATH="$HOME/.foundry/bin:$PATH"
-
-          # Check versions
-          forge --version
-          cast --version
-
-      - name: Create or Update Project
+      # Step 4: Create or update Hardhat project
+      - name: Create Hardhat Project
         run: |
-          export PATH="$HOME/.foundry/bin:$PATH"
-
           if [ ! -d "contracts" ]; then
-            forge init --no-git
+            npx hardhat init
           fi
 
           DATE=$(date +"%Y-%m-%d")
@@ -52,16 +49,16 @@ jobs:
           echo "    }" >> $FILE
           echo "}" >> $FILE
 
-      - name: Run tests
-        run: |
-          export PATH="$HOME/.foundry/bin:$PATH"
-          forge test || true
+      # Step 5: Run Hardhat tests (if any)
+      - name: Run Hardhat tests
+        run: npx hardhat test || true
 
+      # Step 6: Commit changes automatically
       - name: Commit changes
         run: |
-          git config user.name "forge-learning-bot"
+          git config user.name "hardhat-bot"
           git config user.email "bot@users.noreply.github.com"
 
           git add .
-          git commit -m "chore: generate Foundry sample for $(date +'%Y-%m-%d')" || exit 0
+          git commit -m "chore: generate Hardhat sample for $(date +'%Y-%m-%d')" || exit 0
           git push
