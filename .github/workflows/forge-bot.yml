@@ -2,7 +2,7 @@ name: Forge Learning Bot
 
 on:
   schedule:
-    # Every day at 00:05 UTC (adjust if needed)
+    # Every day at 00:05 UTC
    - cron: "5 0-23 1-31 1-12 0-6"
   workflow_dispatch:
 
@@ -17,13 +17,25 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Foundry
-        uses: foundry-rs/setup-foundry@v1
-        with:
-          version: latest
+      - name: Install Foundry
+        run: |
+          # Download and install Foundry installer
+          curl -L https://foundry.paradigm.xyz | bash
+          
+          # Install Foundry binaries (forge, cast, anvil, etc.)
+          ~/.foundry/bin/foundryup
+
+          # Add Foundry to PATH for this step
+          export PATH="$HOME/.foundry/bin:$PATH"
+
+          # Check versions
+          forge --version
+          cast --version
 
       - name: Create or Update Project
         run: |
+          export PATH="$HOME/.foundry/bin:$PATH"
+
           if [ ! -d "contracts" ]; then
             forge init --no-git
           fi
@@ -41,7 +53,9 @@ jobs:
           echo "}" >> $FILE
 
       - name: Run tests
-        run: forge test || true
+        run: |
+          export PATH="$HOME/.foundry/bin:$PATH"
+          forge test || true
 
       - name: Commit changes
         run: |
