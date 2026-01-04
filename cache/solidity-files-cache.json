@@ -74,8 +74,8 @@
       ]
     },
     "/home/runner/work/forge-learning-bot/forge-learning-bot/contracts/Sample_2026_01_03_23_32.sol": {
-      "lastModificationDate": 1767484191112,
-      "contentHash": "e62d782586283dc3908d1f14b967c32a",
+      "lastModificationDate": 1767499986805,
+      "contentHash": "7b37292cebf64c6397b191485b34e1e3",
       "sourceName": "contracts/Sample_2026_01_03_23_32.sol",
       "solcConfig": {
         "version": "0.8.20",
