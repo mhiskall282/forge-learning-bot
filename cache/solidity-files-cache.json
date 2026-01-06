@@ -396,6 +396,42 @@
       "artifacts": [
         "Sample_2026_01_06_23_44"
       ]
+    },
+    "/home/runner/work/base-app/base-app/contracts/Sample_2026_01_06_23_50.sol": {
+      "lastModificationDate": 1767743402639,
+      "contentHash": "a3fa80fed69c064d125c0c032899495f",
+      "sourceName": "contracts/Sample_2026_01_06_23_50.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "Sample_2026_01_06_23_50"
+      ]
     }
   }
 }
